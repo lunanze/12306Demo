@@ -21,7 +21,7 @@
         // 让查询按钮响应我们的鼠标点击操作
         window.onload = function () {
             //找到查询按钮
-            document.getElementsByClassName("search")[0].onclick = function () {
+            document.getElementById("search").onclick = function () {
                 // 开始操作DOM
                 /*
                 <tr>
@@ -75,8 +75,8 @@
         }
 
         function callBack() {
-           if(request.readyState==4){
-               if(request.status==200){
+           if(request.readyState==4){//readyState等于4时完成请求
+               if(request.status==200){//status=200时服务器正常响应
                 console.log(request.responseText);
                }
            }
@@ -95,7 +95,7 @@
 
 <label for="departureDate">出发日期：</label> <input id="departureDate" type="date" name="departureDate">
 
-<button class="search">查询</button>
+<button id="search">查询</button>
 
 
 <!-- 先演示假数据，再进行真数据的操作 -->
