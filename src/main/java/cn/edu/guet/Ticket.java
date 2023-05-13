@@ -2,33 +2,42 @@ package cn.edu.guet;
 
 public class Ticket {
     private String trainNumber;
-    private String fromStation;
-    private String toStation;
+    private String startStation;
+    private String endStation;
     private String duration;
+    private String departureTime;
     private String arrivalTime;
+
+    public String getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(String departureTime) {
+        this.departureTime = departureTime;
+    }
 
     public String getTrainNumber() {
         return trainNumber;
+    }
+
+    public String getEndStation() {
+        return endStation;
+    }
+
+    public void setEndStation(String endStation) {
+        this.endStation = endStation;
     }
 
     public void setTrainNumber(String trainNumber) {
         this.trainNumber = trainNumber;
     }
 
-    public String getFromStation() {
-        return fromStation;
+    public String getStartStation() {
+        return startStation;
     }
 
-    public void setFromStation(String fromStation) {
-        this.fromStation = fromStation;
-    }
-
-    public String getToStation() {
-        return toStation;
-    }
-
-    public void setToStation(String toStation) {
-        this.toStation = toStation;
+    public void setStartStation(String startStation) {
+        this.startStation = startStation;
     }
 
     public String getDuration() {

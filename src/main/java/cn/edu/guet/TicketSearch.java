@@ -3,6 +3,7 @@ package cn.edu.guet;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -53,11 +54,12 @@ public class TicketSearch {
             String[] recordArr = record.split("\\|");
 
             Ticket ticket=new Ticket();
-            ticket.setFromStation(recordArr[6]);
+            ticket.setStartStation(recordArr[6]);
             ticket.setTrainNumber(recordArr[3]);
-            ticket.setToStation(recordArr[7]);
+            ticket.setEndStation(recordArr[7]);
             ticket.setArrivalTime(recordArr[9]);
             ticket.setDuration(recordArr[10]);
+            ticket.setDepartureTime(recordArr[8]);
             ticketList.add(ticket);
 
 //            System.out.println("--------------------------------------------------------");
@@ -79,6 +81,6 @@ public class TicketSearch {
 //            System.out.print("\t商务，特等座: " + recordArr[32]);
 //            System.out.println("--------------------------------------------------------");
         }
-        return JSONObject.toJSONString(ticketList);
+        return JSONObject.toJSONString(ticketList, SerializerFeature.PrettyFormat);
     }
 }

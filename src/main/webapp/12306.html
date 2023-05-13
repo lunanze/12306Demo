@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>12306</title>
     <style>
-        tabel, thead, tr, th, td {
+        table, thead, tr, th, td {
             border: 1px solid black;
+        }
+        table{
             border-collapse: collapse;
         }
 
-        .search {
+        #search {
             width: 100px;
             height: 35px;
             background-color: gold;
@@ -62,24 +64,56 @@
                 //   利用ajax对12306的后端《查询余票》接口进行请求
                 request = new XMLHttpRequest();
                 request.onreadystatechange = callBack;
-                var startStation=document.getElementById("startStation").value;
-                var endStation=document.getElementById("endStation").value;
-                var departureDate=document.getElementById("departureDate").value;
+                var startStation = document.getElementById("startStation").value;
+                var endStation = document.getElementById("endStation").value;
+                var departureDate = document.getElementById("departureDate").value;
                 console.log(startStation);
                 console.log(endStation);
                 console.log(departureDate);
-                request.open("GET", "/searchTicket?startStation="+startStation+"&endStation="+endStation+"&departureDate="+departureDate);
+                request.open("GET", "/searchTicket?startStation=" + startStation + "&endStation=" + endStation + "&departureDate=" + departureDate);
                 request.send(null);
 
             }
         }
 
         function callBack() {
-           if(request.readyState==4){//readyState等于4时完成请求
-               if(request.status==200){//status=200时服务器正常响应
-                console.log(request.responseText);
-               }
-           }
+            if (request.readyState == 4) {//readyState等于4时完成请求
+                if (request.status == 200) {//status=200时服务器正常响应
+                    console.log(request.responseText);
+                    var trainData = JSON.parse(request.responseText);//把JSON文本转化为js对象，trainData为数组类型
+                    for (var i = 0; i < trainData.length; i++) {
+                        var train=trainData[i];
+
+                        brNode=document.createElement("br");
+
+                        trainNumberTd=document.createElement("td");
+                        trainNumberTd.appendChild(document.createTextNode(train.trainNumber));
+
+                        startStationTd=document.createElement("td");
+                        startStationTd.appendChild(document.createTextNode(train.startStation));
+                        startStationTd.appendChild(brNode);
+                        startStationTd.appendChild(document.createTextNode(train.endStation));
+
+                        departureTimeTd=document.createElement("td");
+                        departureTimeTd.appendChild(document.createTextNode(train.departureTime));
+                        departureTimeTd.appendChild(brNode);
+                        departureTimeTd.appendChild(document.createTextNode(train.arrivalTime));
+
+
+                        durationTd=document.createElement("td");
+                        durationTd.appendChild(document.createTextNode(train.duration));
+
+                        var trainTR=document.createElement("tr");
+                        trainTR.appendChild(trainNumberTd);
+                        trainTR.appendChild(startStationTd);
+                        trainTR.appendChild(departureTimeTd);
+                        trainTR.appendChild(durationTd);
+
+                        document.getElementById("train").appendChild(trainTR);
+                    }
+
+                }
+            }
         }
 
         function search() {
@@ -106,7 +140,6 @@
         <th>出发站<br>到达站</th>
         <th>出发时间<br>到达时间</th>
         <th>历时</th>
-        <th>商务座<br>特等座</th>
     </tr>
     </thead>
 </table>
